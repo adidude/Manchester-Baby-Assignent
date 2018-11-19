@@ -44,7 +44,8 @@ public:
   int decode();
 
   int getCurrentInstructionAddress();
-
+  int getOperand();
+  void printState();
 };
 
 Baby::Baby(){
@@ -68,6 +69,34 @@ Baby::Baby(){
 
 int Baby::getCurrentInstructionAddress(){
   return binToDec(ci);
+}
+
+void Baby::printState(){
+  for(int i = 0; i < STORE_SIZE; i++){
+    for(int j = 0; i < LINE_WIDTH; j++){
+      if(store[i][j]){
+        cout << "1";
+      }
+      else{
+        cout << "0";
+      }
+    }
+    cout << endl;
+  }
+  cout << endl << "CI:" << endl;
+  printBin(ci);
+  cout << endl << "PI:" << endl;
+  printBin(pi);
+  cout << endl << "Accumulator:" << endl;
+  printBin(acc);
+}
+
+int Baby::getOperand(){
+  bool operandBin[LINE_WIDTH];
+  for(int i = 0; i <= 5; i++){
+    operandBin[i] = pi[i];
+  }
+  return binToDec(operandBin);
 }
 
 void Baby::incrementCI(){
@@ -124,7 +153,6 @@ void Baby::printBin(bool* bin){
       cout << "0";
     }
   }
-  cout << "  " << to_string(binToDec(bin)) << "  ";
 }
 
 int Baby::binToDec(bool binary[]){
