@@ -6,6 +6,12 @@
 #include <math.h>
 #include <string>
 
+#define SUCCESS	(0)					//task succeeded
+#define OUT_OF_RANGE (1)			//arithmetical sum went beyond what Baby can store
+#define STOP (2)					//stop execution
+#define CONTINUE (3)				//continue execution
+#define NOT_ENOUGH_MEMORY (4) //Baby ran out of memory for the current program
+
 using namespace std;
 
 class Baby{
@@ -35,6 +41,10 @@ public:
 
   void executeFunct(int, int);
   void decodePI(int*, int*);
+  int decode();
+
+  int getCurrentInstructionAddress();
+
 };
 
 Baby::Baby(){
@@ -54,6 +64,10 @@ Baby::Baby(){
       store[j][i] = false;
     }
   }
+}
+
+int Baby::getCurrentInstructionAddress(){
+  return binToDec(ci);
 }
 
 void Baby::incrementCI(){
@@ -310,10 +324,31 @@ void Baby::executeFunct(int opCode, int operand){
     }
 		case 7:{
 			cout << "STOPPED" << endl;
-			throw 1;
+			throw STOP;
 			break;
     }
 	}
+}
+
+int Baby::decode(){
+  int* opcode = new int;
+  int* operand = new int;
+  bool stop = false;
+  decodePI(opcode,operand);
+  try{
+    executeFunct(*opcode,*operand);
+  }
+  catch(int){
+    stop = true;
+  }
+
+  if(stop){
+    return STOP;
+  }
+  else{
+    return CONTINUE;
+  }
+
 }
 
 #endif
