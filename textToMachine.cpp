@@ -181,17 +181,7 @@ void machineCodeLineGenerator (string command) // Example: Converts STO 26 to 01
 
 int main()
 {
-    cout<<"ASSEMBLER"<<endl;
-    cout<<"Enter your code. Press F to exit"<<endl;
-
-    string lineOfCode;
-
-    while(lineOfCode != "F")
-    {
-        cout<<"Enter next line: "<<endl;
-        cin>>lineOfCode;
-        machineCodeLineGenerator(lineOfCode);
-    }
+  machineCodeGenerator("LDN 08");
     return 0;
 }
 
