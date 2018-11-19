@@ -1,11 +1,4 @@
-#include<iostream>
-#include<cstring>
-#include<sstream>
-#include<vector>
-#include<algorithm>
-#include<iterator>
-
-using namespace std;
+#include "Structures.h"
 
 string hexToBinary(char e) // Big Endian Hex to Binary converter
 {
@@ -59,12 +52,13 @@ string numToBinary(int number) // used to return the Line Number - 5 bits always
 string commandToBinary (string const& inputString) // Returns binary string for the specified Manchester Baby function
 {
     if(inputString == "JMP") return "000";
-    if(inputString == "JRP") return "110";
+    if(inputString == "JRP") return "100";
     if(inputString == "LDN") return "010";
     if(inputString == "STO") return "110";
     if(inputString == "SUB") return "001";
-    if(inputString == "CMP") return "011";
-    if(inputString == "STP") return "111";
+    if(inputString == "CMP") return "101";
+    if(inputString == "STP") return "011";
+    if(inputString == "VAR") return "111";
 }
 
 void machineCodeLineGenerator (string command) // Example: Converts STO 26 to 01011000000001100000000000000000
