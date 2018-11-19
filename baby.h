@@ -46,6 +46,7 @@ public:
   int getCurrentInstructionAddress();
   int getOperand();
   void printState();
+  void insertInstruction(string, int);
 };
 
 Baby::Baby(){
@@ -378,5 +379,21 @@ int Baby::decode(){
   }
 
 }
+
+void Baby::insertInstruction(string line, int lineNumber)
+{
+  for (unsigned i=0; i<line.length(); i++)
+  {
+    if (line[i] == '0')
+    {
+      store[lineNumber][i] = 0;
+    }
+    else
+    {
+      store[lineNumber][i] = 1;
+    }
+  }
+}
+
 
 #endif
