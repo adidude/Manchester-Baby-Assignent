@@ -2,31 +2,9 @@
 #include<cstring>
 #include<sstream>
 #include<vector>
+#include<fstream>
 
 using namespace std;
-
-string hexToBinary(char e) // Big Endian Hex to Binary converter
-{
-    switch(e)
-    {
-        case '0': return "0000";
-        case '1': return "1000";
-        case '2': return "0100";
-        case '3': return "1100";
-        case '4': return "0010";
-        case '5': return "1010";
-        case '6': return "0110";
-        case '7': return "1110";
-        case '8': return "0001";
-        case '9': return "1001";
-        case 'A': return "0101";
-        case 'B': return "1101";
-        case 'C': return "0011";
-        case 'D': return "1011";
-        case 'E': return "0111";
-        case 'F': return "1111";
-    }
-}
 
 string numToBinary(int number) // used to return the Line Number - 5 bits always - big endian
 {
@@ -108,7 +86,10 @@ void machineCodeLineGenerator (string command) // Example: Converts STO 26 to 01
     int Ioperand;
     int finalNumber[32]; // creating 32 bit array to write to memory
     string lineToBeWritten;
+    ofstream myFile;
     
+    myFile.open("Compiled Code.txt");
+
     string opcode, Soperand;
 
     if (commandLength == 4)
@@ -117,7 +98,7 @@ void machineCodeLineGenerator (string command) // Example: Converts STO 26 to 01
         Soperand = command.substr(4,4);
     }
 
-    if (commandLength == 5)
+    else if (commandLength == 5)
     {
     opcode = command.substr(0, 3); // separating the opcode from the command line
     Soperand = command.substr(4,5); // getting the operand
@@ -164,25 +145,25 @@ void machineCodeLineGenerator (string command) // Example: Converts STO 26 to 01
         }
 
         for(int i=0; i<32; i++)
-            cout<<finalNumber[i];
+            myFile<<finalNumber[i];
 
         return;
-
     }
 
-    opcode = commandToBinary(opcode);
+
+        opcode = commandToBinary(opcode);
     
-    istringstream(Soperand)>>Ioperand;
-    string binary = numToBinary(Ioperand);
+        istringstream(Soperand)>>Ioperand;
+        string binary = numToBinary(Ioperand);
 
 
-    lineToBeWritten.append(binary); // Line Number - 01011
-    lineToBeWritten.append("00000000",8); // Space between line number and function - 00000000
-    lineToBeWritten.append(opcode); // Function - 110
-    lineToBeWritten.append("0000000000000000",16); // Remaining 16 bits - 0000000000000000
+        lineToBeWritten.append(binary); // Line Number - 01011
+        lineToBeWritten.append("00000000",8); // Space between line number and function - 00000000
+        lineToBeWritten.append(opcode); // Function - 110
+        lineToBeWritten.append("0000000000000000",16); // Remaining 16 bits - 0000000000000000
 
 
-    for(int i=0; i<32; i++)
+         for(int i=0; i<32; i++)
         {
            char temp = lineToBeWritten[i]; // separating each character of the array
            if (temp == '1')
@@ -190,16 +171,27 @@ void machineCodeLineGenerator (string command) // Example: Converts STO 26 to 01
             else finalNumber [i] = 0;
         }
 
-   for(int i=0; i<32; i++)
-        cout<<finalNumber[i];
+        for(int i=0; i<32; i++)
+            myFile<<finalNumber[i];
 
+    myFile<<endl;
         // method to write to file
 
 }
 
 int main()
 {
-    machineCodeLineGenerator("LDN 08");
+    cout<<"ASSEMBLER"<<endl;
+    cout<<"Enter your code. Press F to exit"<<endl;
+
+    string lineOfCode;
+
+    while(lineOfCode != "F")
+    {
+        cout<<"Enter next line: "<<endl;
+        cin>>lineOfCode;
+        machineCodeLineGenerator(lineOfCode);
+    }
     return 0;
 }
 
