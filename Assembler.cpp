@@ -6,20 +6,17 @@
 
 #include "Structures.h"
 
+void translate()
+{
+	SymblTable table;
+	table.initTable();
+
+	
+}
+
 int main() 
 {
-
-	ifstream yolo = getFile();
-	string line;
-	for (int i = 0; i < 3; ++i)
-	{
-		getline(yolo, line);
-		for (unsigned int j = 0; j < line.size(); ++j)
-		{
-			cout << line[j] << endl;
-		}	
-	}
-	yolo.close();
+	translate();
 
 	return 0;
 }
