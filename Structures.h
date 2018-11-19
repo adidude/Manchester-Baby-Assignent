@@ -37,6 +37,7 @@ public:
 				if (line[i] == ';')
 				{
 					i = line.size();
+					operand.push_back(line.substr(11,i-1));
 				}
 				else if (line[i] == ':')
 				{
@@ -46,7 +47,6 @@ public:
 				}
 			}
 		}
-
 	}
 
 };
