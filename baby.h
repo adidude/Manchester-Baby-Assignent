@@ -1,3 +1,4 @@
+
 #ifndef MANCHESTER_BABY
 #define MANCHESTER_BABY
 
@@ -10,6 +11,7 @@
 #define OUT_OF_RANGE (1)			//arithmetical sum went beyond what Baby can store
 #define STOP (2)					//stop execution
 #define CONTINUE (3)				//continue execution
+
 #define NOT_ENOUGH_MEMORY (4) //Baby ran out of memory for the current program
 
 using namespace std;
