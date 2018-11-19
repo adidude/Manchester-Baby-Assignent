@@ -1,3 +1,4 @@
+
 #ifndef MANCHESTER_BABY
 #define MANCHESTER_BABY
 
@@ -10,6 +11,7 @@
 #define OUT_OF_RANGE (1)			//arithmetical sum went beyond what Baby can store
 #define STOP (2)					//stop execution
 #define CONTINUE (3)				//continue execution
+
 #define NOT_ENOUGH_MEMORY (4) //Baby ran out of memory for the current program
 
 using namespace std;
@@ -46,6 +48,7 @@ public:
   int getCurrentInstructionAddress();
   int getOperand();
   void printState();
+  void insertInstruction(string, int);
 };
 
 Baby::Baby(){
@@ -378,5 +381,21 @@ int Baby::decode(){
   }
 
 }
+
+void Baby::insertInstruction(string line, int lineNumber)
+{
+  for (unsigned i=0; i<line.length(); i++)
+  {
+    if (line[i] == '0')
+    {
+      store[lineNumber][i] = 0;
+    }
+    else
+    {
+      store[lineNumber][i] = 1;
+    }
+  }
+}
+
 
 #endif
